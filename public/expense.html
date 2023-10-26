@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+
+</head>
+<style>
+  body{
+    margin: 0px;
+    padding: 0px;
+  }
+
+  #navbar {
+    background-color: rgb(7, 7, 7);
+    color: antiquewhite;
+    display: flex;
+  }
+
+  #logo {
+    text-decoration: none;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 600;
+    margin-left: 20px;
+  }
+
+  #logout{
+    margin-top: 5px;
+    padding: 5px;
+    margin-left: 4px;
+  }
+
+  #logout:hover{
+    cursor: pointer;
+  }
+
+  #userName{
+    margin-left: 600px;
+  }
+
+  #navdiv1{
+    margin-left: 10px;
+    margin-top: 6px;
+  }
+
+  #uldiv{
+    margin-left: 40px;
+  }
+
+  #ulist {
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+  }
+
+  #username{
+    margin-left: 500px;
+  }
+
+  #ulist li a{
+    text-decoration: none;
+    color: rgb(196, 195, 195);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 15px;
+  }
+
+  #ulist li{
+    margin-left: 40px;
+  }
+
+  #expenseForm{
+    background-color: rgb(200, 250, 198);
+    width: 550px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 350px;
+    padding: 20px;
+  }
+
+  #edc{
+    padding: 10px;
+    margin-left: 25px;
+  }
+
+  #edc input{
+    padding: 5px;
+    margin-left: 80px;
+    width: 250px;
+  }
+
+  #edc label{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  #form-row{
+    justify-content: center;
+  }
+
+  #expenseInput.form-control{
+    margin-left: 104px;
+  }
+
+  #categoryInput.form-control{
+    padding: 7px;
+    justify-content: center;
+    align-items: center;
+    width: 263px;
+    margin-left: 101px;
+  }
+
+  #addExpense{
+    background-color: rgb(5, 8, 189);
+    border-radius: 50px;
+    border-width: 0px;
+    color: white;
+    margin-left: 235px;
+    padding: 8px;
+    margin-top: 10px;
+    width: 70px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  #offsetInput{
+    background-color: rgb(252, 253, 253);
+    width: 300px;
+    margin-top: 20px;
+    padding: 10px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    margin-left: 500px;
+  }
+
+  #expenseList{
+    margin-left: 500px;
+  }
+
+  #expenseList li{
+    padding: 7px;
+  }
+
+  #expenseList button{
+    background-color: rgb(252, 72, 72);
+    margin-left: 20px;
+    border: 0px;
+    border-radius: 50px;
+    color: white;
+    font-family:'Courier New', Courier, monospace;
+    padding: 4px;
+    width: 70px;
+  }
+
+  #pagination{
+    margin-left: 610px;
+  }
+
+  #currentPage{
+    border: 0px;
+    border-color: white;
+    border-radius: 60px;
+    background-color: white;
+  }
+  
+  #nextPage{
+    border: 0px;
+    border-color: white;
+    border-radius: 60px;
+    background-color: white;
+  }
+
+  #prevPage{
+    border: 0px;
+    border-color: white;
+    border-radius: 60px;
+    background-color: white;
+  }
+
+  #dashboardBtn{
+    background-color: rgb(14, 151, 14);
+    border-radius: 60px;
+    padding: 9px;
+    width: 170px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-left: 550px;
+  }
+
+  #listOfUses{
+    margin-top: 15px;
+    margin-left: 580px;
+  }
+
+  #downloadexpense{
+    background-color: rgb(12, 12, 105);
+    padding: 5px;
+    color: white;
+    width: 170px;
+    border-color: rgb(5, 5, 59);
+    margin-left: 560px;
+    border-radius: 50px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  #isPremium{
+    margin-left: 550px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  #premiumBtn{
+    background-color: rgb(12, 12, 105);
+    padding: 5px;
+    color: white;
+    width: 170px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-color: rgb(5, 5, 59);
+    margin-left: 9px;
+    border-radius: 50px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+
+</style>
+
+<body>
+
+
+
+  <div id="maindiv">
+    <nav id="navbar">
+
+      <div class="container-fluid" id="navdiv1">
+        <a class="navbar-brand" id="logo" href="/">EXPENSE Tracker</a>
+      </div>
+
+      <div id="uldiv">
+        <ul id="ulist">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/signup.html">SignUp</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/expense.html">Expense</a>
+          </li>
+        </ul>
+      </div>
+
+
+
+
+      <div id="userName"></div>
+      <div id="logout">Logout</div>
+
+
+
+    </nav>
+
+
+
+    <!-- <h2>Expense Tracker</h2> -->
+    <div id="isPremium">
+      <button id="premiumBtn">Get Premium</button>
+    </div>
+    <button onclick="download()" id="downloadexpense">Download File</button>
+
+
+
+    <form id="expenseForm" class="mt-4">
+      <div class="form-row">
+        <div id="edc" class=" mb-3">
+          <label for="expenseInput">Expense</label>
+          <input type="number" class="form-control" id="expenseInput" required>
+        </div>
+        <div id="edc" class=" mb-3">
+          <label for="descriptionInput">Description</label>
+          <input type="text" class="form-control" id="descriptionInput" required>
+        </div>
+        <div id="edc" class=" mb-3">
+          <label for="categoryInput">Category</label>
+          <select class="form-control" id="categoryInput" required>
+            <option value="">Choose Category</option>
+            <option value="movies">Movies</option>
+            <option value="trip">Trip</option>
+            <option value="food">Food</option>
+            <option value="product">Product</option>
+            <option value="gym">Gym</option>
+            <option value="recharge">Recharge</option>
+          </select>
+        </div>
+        <div class="col-md-1 mb-3">
+          <button type="submit" id="addExpense" class="btn btn-primary">ADD</button>
+        </div>
+      </div>
+    </form>
+
+
+
+
+    <select class="offset" id="offsetInput" required>
+      <option value="">Choose Records per Page</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+    </select>
+
+
+    <div>
+      <ul id="expenseList"></ul>
+    </div>
+    
+
+
+
+    <div id="pagination">
+    </div>
+    <button id="dashboardBtn" class="d-none">Show Leaderboard</button>
+    <div id="listOfUses"></div>
+  </div>
+
+
+
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+    integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="expense.js"></script>
+</body>
+
+</html>
