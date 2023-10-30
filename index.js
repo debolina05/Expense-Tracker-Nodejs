@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv').config();
-const bcrypt = require('bcrypt');
 
 const User = require('./model/userModel');
 const Expense = require('./model/expensemodel');
@@ -15,12 +14,10 @@ const loginRoutes = require('./routes/loginRoutes');
 const premiumRoutes = require('./routes/premiumRoutes');
 const forgetRoutes = require('./routes/forgetRoutes');
 const userRoutes = require('./routes/userRoutes');
+const updatePassword  = require('./routes/updatePasswordRoutes');
 
 
 const app = express();
-
-//secret key for jwt
-const secretKey = "secretKey";
 
 //port number where our server runs
 const port = 3000;
@@ -40,37 +37,7 @@ app.use('/expense', expenseRoutes);
 app.use('/premium', premiumRoutes);
 app.use('/password',forgetRoutes);
 app.use('/user',userRoutes);
-app.post('/updatepassword',async (req,res)=>{
-    console.log(req.body);
-    const {password,uuid}=req.body;
-    const arr=uuid.split('/');
-    console.log(arr[arr.length-1]);
-    const result=await ForgotUser.findOne(
-        {where:
-            {
-                uuid:arr[arr.length-1],
-                isActive:true,
-            }
-        });
-    console.log(result);
-    if(result!==null){
-        const hash=await bcrypt.hash(req.body.password, 10)
-        const resetresult=await User.update({ password: hash }, {
-            where: {
-              id: result.UserId
-            }
-          });
-          const updateforget=await ForgotUser.update({ isActive: false }, {
-            where: {
-                uuid:arr[arr.length-1],
-              }
-            }); 
-        console.log(resetresult);
-        console.log(updateforget);
-        res.json({message:'password reset'})
-    }
-    
-})
+app.use('/updatepassword',updatePassword);
 
 User.hasMany(ForgotUser);
 ForgotUser.belongsTo(User);

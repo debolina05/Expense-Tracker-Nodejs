@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, DATE, DATEONLY } = require("sequelize");
 const sequelize = require("../util/db");
 
 const Expense = sequelize.define(

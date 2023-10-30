@@ -2,6 +2,7 @@ const express = require('express');
 const { postExpenseController, getExpenseController ,deleteExpenseController} = require('../controllers/expenseControllers');
 const router=express.Router();
 
+
 // for validata token
 const extractToken = (req, res, next) => {
     console.log(`in expense route`);
@@ -16,7 +17,6 @@ const extractToken = (req, res, next) => {
         res.status(403).send({ message: 'invalid authentication' })
     }
 }
-// router.use(extractToken);
 router.get('/',extractToken,getExpenseController);
 router.post('/',postExpenseController);
 router.delete('/:id',extractToken, deleteExpenseController);

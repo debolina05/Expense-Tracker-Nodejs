@@ -5,7 +5,6 @@ const config = {
   },
 };
 
-
 //save expenses when clicked on add and display
 const saveExpense = (e) => {
   e.preventDefault();
@@ -53,9 +52,6 @@ const displayUsers = (data) => {
 };
 //end of save expense and display
 
-
-
-
 //offset------------------------------------------------------
 const selectOffset = document.getElementById("offsetInput");
 selectOffset.addEventListener("change", (e) => {
@@ -71,7 +67,6 @@ selectOffset.addEventListener("change", (e) => {
       .catch((err) => console.log(err));
   }
 });
-
 
 const display = (data) => {
   console.log(data);
@@ -134,44 +129,6 @@ const pagination = (data) => {
     });
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  let offset = localStorage.getItem("offset");
-  const token = localStorage.getItem("token");
-  if (token !== null) {
-    axios
-      .get(`${url}/expense?page=1&&offset=${offset}`, config)
-      .then((data) => {
-        console.log(data.data);
-        pagination(data.data);
-      })
-      .catch((err) => console.log(err));
-  }
-  //offset-----------------------------------------------------
-
-
-  const dashboardBtn = document.getElementById("dashboardBtn");
-  const premiumStatus = localStorage.getItem("isPremium");
-  console.log(premiumStatus);
-  if (premiumStatus == "true") {
-    const isPremium = document.getElementById("isPremium");
-    console.log(typeof isPremium);
-    isPremium.innerHTML = "<p>You are a premium user now</p>";
-    dashboardBtn.className = "btn btn-success";
-  }
-  if (token == undefined || token == "" || token == null) {
-    alert("You are not login, Please login first to add Expense");
-    window.location = `${url}/login.html`;
-  } else {
-    const name = localStorage.getItem("userName");
-    const userName = document.getElementById("userName");
-    userName.innerHTML = `<h3 class=" bg-success m-1 p-3 rounded">${name.toUpperCase()}</h3>`;
-    const logout = document.getElementById("logout");
-    logout.innerHTML = `<button type="button" id="logout" class="btn btn-outline-danger">Logout</button>`;
-  }
-});
-
-
-
 //logout-------------------------------------------
 const logoutUser = () => {
   const logout = document.getElementById("logout");
@@ -195,18 +152,54 @@ const deleteExpense = (id) => {
 };
 //logout------------------------------------------
 
+window.addEventListener("DOMContentLoaded", () => {
+  let offset = localStorage.getItem("offset");
+  const token = localStorage.getItem("token");
+  const is_premium = localStorage.getItem("isPremium")
+  console.log("15999", is_premium)
+  if (token !== null) {
+    axios
+      .get(`${url}/expense?page=1&&offset=${offset}`, config)
+      .then((data) => {
+        console.log(data.data);
+        pagination(data.data);
+      })
+      .catch((err) => console.log(err));
+  }
+  const dashboardBtn = document.getElementById("dashboardBtn");
+  const premiumStatus = localStorage.getItem("isPremium");
+  console.log(premiumStatus);
+  if (premiumStatus == "true") {
+    const isPremium = document.getElementById("isPremium");
+    const elem = document.getElementById("forpremium").style.visibility='visible';
+    console.log(typeof isPremium);
+    isPremium.innerHTML = "<p>You are a premium user now</p>";
+    dashboardBtn.className = "btn btn-success";
+  }
+  if (token == undefined || token == "" || token == null) {
+    alert("You are not login, Please login first to add Expense");
+    window.location = `${url}/login.html`;
+  } else {
+    const name = localStorage.getItem("userName");
+    const userName = document.getElementById("userName");
+    userName.innerHTML = `<h3 class=" bg-success m-1 p-3 rounded">${name.toUpperCase()}</h3>`;
+    const logout = document.getElementById("logout");
+    logout.innerHTML = `<button type="button" id="logout" class="btn btn-outline-danger">Logout</button>`;
+  }
+});
 
 //payment--------------------------
 const handleOpenRazorpay = (data) => {
   console.log(data);
   let options = {
-    key_id: "rzp_test_SakFS05puLVhuN",
+    key: "rzp_test_SakFS05puLVhuN",
     order_id: data.id,
     //this handler is a callback function and gets called when the payment is successful
     handler: function (response) {
       axios.post(`${url}/premium`, response, config).then((response) => {
-        console.log(response);
+        console.log('208',response);
         alert("You are a Premium user now");
+        location.reload()
         const isPremium = document.getElementById("isPremium");
         console.log(isPremium);
         isPremium.innerHTML = "<p>You are a premium user now</p>";
@@ -234,9 +227,6 @@ if (premium != null) {
 }
 //Payment done------------------------------
 
-
-
-
 //leaderboard--------------------------------------
 dashboardBtn.addEventListener("click", async () => {
   try {
@@ -244,11 +234,9 @@ dashboardBtn.addEventListener("click", async () => {
     console.log(data.data.data);
     document.getElementById("listOfUses").innerHTML = "";
     data.data.data.forEach((element) => displayUsers(element));
-  } catch {
-  }
+  } catch { }
 });
 //leaderboard----------------------------------------
-
 
 //download-------------------------------------------
 function download() {
